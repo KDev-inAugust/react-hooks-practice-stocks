@@ -14,11 +14,35 @@ const [portfolioList, setPortfolioList]=useState([]);
     .then((data)=>setStockList(data))
   },[])
 
-  
-  function handlePortfolioAdd(name){
-    stockList.map(index=>{
-      if(index.name===name){setPortfolioList([...portfolioList, index])}});
+ 
+  function compareLists(stockList, portfolioList){
+    for(let i=0; i < stockList.length; i++){
+    for(let j=0; j < portfolioList.length; j++){
+      if(stockList[i]===portfolioList[j]){
+        console.log(portfolioList[j].name)
+        return portfolioList[j].name;
+      }
+    }
   }
+ }
+
+
+  function handlePortfolioAdd(name){
+    console.log(name);
+if (portfolioList.some(index=>index.name===name)){
+  console.log('already there')}
+  else {
+  stockList.map((index)=>{
+    if(index.name===name){
+      setPortfolioList([...portfolioList, index]);
+        }
+      }
+    )
+}
+    }
+
+   
+
 
   return (
     <div>
