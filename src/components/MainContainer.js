@@ -6,6 +6,7 @@ import SearchBar from "./SearchBar";
 function MainContainer() {
 
 const [stockList, setStockList]=useState([]);
+const [portfolioList, setPortfolioList]=useState([]);
 
   useEffect(()=>{
     fetch('http://localhost:3001/stocks')
@@ -13,16 +14,21 @@ const [stockList, setStockList]=useState([]);
     .then((data)=>setStockList(data))
   },[])
 
+  
+  function handlePortfolioAdd(name){
+    stockList.map(index=>{
+      if(index.name===name){setPortfolioList([...portfolioList, index])}});
+  }
 
   return (
     <div>
       <SearchBar />
       <div className="row">
         <div className="col-8">
-          <StockContainer stockList={stockList}/>
+          <StockContainer stockList={stockList} handlePortfolioAdd={handlePortfolioAdd}/>
         </div>
         <div className="col-4">
-          <PortfolioContainer />
+          <PortfolioContainer portfolioList={portfolioList}/>
         </div>
       </div>
     </div>
