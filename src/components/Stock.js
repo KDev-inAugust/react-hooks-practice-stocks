@@ -1,11 +1,19 @@
 import React from "react";
 
-function Stock({name, price, handlePortfolioAdd}) {
+function Stock({name, price, handlePortfolioAdd, isInPortfolio, handlePortfolioDelete}) {
+
+  console.log(isInPortfolio)
 
   function handleStockClick(e){
-    console.log(e.target.value)
-  handlePortfolioAdd(name);
+    if (isInPortfolio===false){
+      console.log(e.target.value)
+      handlePortfolioAdd(name);
+    }
+    else handlePortfolioDelete(name)
   }
+
+
+
 
   return (
     <div onClick={handleStockClick}>

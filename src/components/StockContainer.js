@@ -9,7 +9,7 @@ function StockContainer({stockList, handlePortfolioAdd}) {
     <div>
       <h2>Stocks</h2>
       {stockList.map((index)=>{
-        return <Stock handlePortfolioAdd={handlePortfolioAdd} key={index.id} name={index.name} price={index.price} />
+        return <Stock handlePortfolioAdd={handlePortfolioAdd} key={index.id} name={index.name} price={index.price} isInPortfolio={false}/>
       })}
     </div>
   );
