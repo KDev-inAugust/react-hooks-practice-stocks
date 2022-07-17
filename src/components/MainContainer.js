@@ -9,14 +9,29 @@ const [stockList, setStockList]=useState([]);
 const [portfolioList, setPortfolioList]=useState([]);
 
   useEffect(()=>{
-    fetch('http://localhost:3001/stocks')
+  fetch('http://localhost:3001/stocks')
     .then((res)=>res.json())
     .then((data)=>setStockList(data))
   },[])
 
+function handleSortBy(sortby){
+  switch (sortby) {
+    case 'Alphabetically':
+      setStockList([...stockList].sort(alphabatizeCompare(stockList)));
+      break;
+    case 'Price':
+      setStockList([...stockList].sort(priceCompare(stockList)))
+  }
+}
+
+
+const alphabatizeCompare = (propName) =>
+  (a, b) => a.name.toLowerCase() < b.name.toLowerCase() ? -1 : 1
+
+const priceCompare = (propName) =>
+  (a, b) => a.price > b.price ? -1 : 1
 
   function handleFilter(category){
-    console.log(category);
     fetch('http://localhost:3001/stocks')
     .then((res)=>res.json())
     .then((data)=>setStockList(data.filter((index)=>index.type===category)))
@@ -37,7 +52,6 @@ if (portfolioList.some(index=>index.name===name)){
       }
     }
 
-
     function handlePortfolioDelete(name){
       console.log(name);
       setPortfolioList(portfolioList.filter((index)=>index.name!==name))
@@ -46,7 +60,7 @@ if (portfolioList.some(index=>index.name===name)){
 
   return (
     <div>
-      <SearchBar handleFilter={handleFilter}/>
+      <SearchBar handleSortBy={handleSortBy} handleFilter={handleFilter}/>
       <div className="row">
         <div className="col-8">
           <StockContainer stockList={stockList} handlePortfolioAdd={handlePortfolioAdd} />

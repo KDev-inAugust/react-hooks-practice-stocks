@@ -1,10 +1,30 @@
-import React from "react";
+import React, {useState, useEffect} from "react";
 
-function SearchBar({handleFilter}) {
+function SearchBar({handleFilter, handleSortBy}) {
+
+  let [alphaChecked, setAlphaChecked]=useState(null)
+  let [priceChecked, setPriceChecked]=useState(null)
+
+
 
 function onFilterChange(e){
-  handleFilter(e.target.value)
+  handleFilter(e.target.value);
+  setAlphaChecked(false);
+  setPriceChecked(false);
+  
 }
+
+function handleAlphaChange(e){
+  handleSortBy(e.target.value);
+  
+}
+
+function handlePriceChange(e){
+  handleSortBy(e.target.value);
+ 
+}
+
+console.log(alphaChecked)
 
   return (
     <div>
@@ -14,8 +34,8 @@ function onFilterChange(e){
           type="radio"
           value="Alphabetically"
           name="sort"
-          checked={null}
-          onChange={null}
+          checked={alphaChecked}
+          onChange={handleAlphaChange}
         />
         Alphabetically
       </label>
@@ -24,8 +44,8 @@ function onFilterChange(e){
           type="radio"
           value="Price"
           name="sort"
-          checked={null}
-          onChange={null}
+          checked={priceChecked}
+          onChange={handlePriceChange}
         />
         Price
       </label>
