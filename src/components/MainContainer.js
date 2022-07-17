@@ -9,14 +9,13 @@ const [stockList, setStockList]=useState([]);
 const [portfolioList, setPortfolioList]=useState([]);
 
   useEffect(()=>{
-    fetch('http://localhost:3001/stocks')
+  fetch('http://localhost:3001/stocks')
     .then((res)=>res.json())
     .then((data)=>setStockList(data))
   },[])
 
 
   function handleFilter(category){
-    console.log(category);
     fetch('http://localhost:3001/stocks')
     .then((res)=>res.json())
     .then((data)=>setStockList(data.filter((index)=>index.type===category)))
