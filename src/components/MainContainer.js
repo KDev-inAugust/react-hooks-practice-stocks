@@ -14,7 +14,13 @@ const [portfolioList, setPortfolioList]=useState([]);
     .then((data)=>setStockList(data))
   },[])
 
- 
+
+  function handleFilter(category){
+    console.log(category);
+    fetch('http://localhost:3001/stocks')
+    .then((res)=>res.json())
+    .then((data)=>setStockList(data.filter((index)=>index.type===category)))
+  }
 
 
   function handlePortfolioAdd(name){
@@ -40,7 +46,7 @@ if (portfolioList.some(index=>index.name===name)){
 
   return (
     <div>
-      <SearchBar />
+      <SearchBar handleFilter={handleFilter}/>
       <div className="row">
         <div className="col-8">
           <StockContainer stockList={stockList} handlePortfolioAdd={handlePortfolioAdd} />
